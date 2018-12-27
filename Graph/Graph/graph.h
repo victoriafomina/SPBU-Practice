@@ -1,11 +1,11 @@
 #pragma once
 #include <vector>
+#include <string>
 
 class Graph
 {
 public:
-	Graph(std::vector<std::vector<int>> const & adjacencyMatrix);
-	Graph(std::vector<std::vector<int>> const & incidenceMatrix);
+	Graph(std::vector<std::vector<int>> const & matrix, std::string const & matrixType);
 	~Graph();
 
 	int getNumberOfVertexes() const;
@@ -14,6 +14,7 @@ public:
 private:
 	void adjancencyMatrixToIncidence();
 	void incidenceMatrixToAdjancency();
+	void graphIsCorrect();
 
 	std::vector<std::vector<int>> adjacencyMatrix;
 	std::vector<std::vector<int>> incidenceMatrix;

@@ -1,16 +1,26 @@
 #include "graph.h"
+#include <cassert>
 
 using namespace std;
 
-Graph::Graph(std::vector<std::vector<int>> const & adjacencyMatrix)
+Graph::Graph(std::vector<std::vector<int>> const & matrix, string const & matrixType)
 {
-	this->adjacencyMatrix = adjacencyMatrix;
-	adjancencyMatrixToIncidence();
-}
-Graph::Graph(std::vector<std::vector<int>> const & incidenceMatrix)
-{
-	this->incidenceMatrix = incidenceMatrix;
-	incidenceMatrixToAdjancency();
+	if (matrixType != "adjacency" && matrixType != "incidence")
+	{
+		bool invalidMatrixType = false;
+		assert(invalidMatrixType);
+	}
+	if (matrixType == "adjacency")
+	{
+		this->adjacencyMatrix = matrix;
+		adjancencyMatrixToIncidence();
+	}
+	if (matrixType == "incidence")
+	{
+		this->incidenceMatrix = incidenceMatrix;
+		incidenceMatrixToAdjancency();
+	}
+	graphIsCorrect();
 }
 Graph::~Graph()
 {}
@@ -27,4 +37,6 @@ int Graph::getNumberOfEdges() const
 void Graph::adjancencyMatrixToIncidence()
 {}
 void Graph::incidenceMatrixToAdjancency()
+{}
+void Graph::graphIsCorrect()
 {}
