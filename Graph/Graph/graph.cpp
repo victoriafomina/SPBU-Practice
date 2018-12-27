@@ -36,7 +36,7 @@ int Graph::getNumberOfVertexes() const
 }
 int Graph::getNumberOfEdges() const
 {
-	return incidenceMatrix[0].size();
+	return incidenceMatrix.size();
 }
 set<int> Graph::getSetOfVertexes() const
 {
@@ -44,10 +44,9 @@ set<int> Graph::getSetOfVertexes() const
 }
 int Graph::getEdgeWeight(int const vertex1, int const vertex2) const
 {
-
+	correctEdge(vertex1, vertex2);
+	return adjacencyMatrix[vertex1][vertex2];
 }
-int & Graph::setEdgeWeight(int const vertex1, int const vertex2)
-{}
 // свойства графа
 bool Graph::isDirected() const
 {
@@ -77,10 +76,43 @@ bool Graph::withLoops() const
 // заполнение данных
 void Graph::adjancencyMatrixToIncidence()
 {
+	int const numberOfVertexes = getNumberOfVertexes();
+	for (int row = 0; row < numberOfVertexes; ++row)
+	{
+		for (int column = row; column < numberOfVertexes; ++column)
+		{
+			if (getEdgeWeight(row, column) != 0 || getEdgeWeight(column, row) != 0)
+			{
+				addEdge(row, column);
+			}
+		}
+	}
 }
-void Graph::incidenceMatrixToAdjancency()
-{}
-// вспомогательное для заполнения
+// вспомогательное для заполнения матрицы инцидентности
+void Graph::addEdge(int const row, int const column)
+{
+	int const numberOfVertexes = getNumberOfVertexes();
+	vector<int> edge(numberOfVertexes);
+	if (getEdgeWeight(row, column) == getEdgeWeight(column, row))
+	{
+		edge[row] = getEdgeWeight(row, column);
+		edge[column] = edge[row];
+	}
+	else
+	{
+		if (getEdgeWeight(row, column) == 0)
+		{
+			edge[row] = -getEdgeWeight(column, row);
+			edge[column] = getEdgeWeight(column, row);
+		}
+		else
+		{
+			edge[row] = getEdgeWeight(row, column);
+			edge[column] = -getEdgeWeight(row, column);
+		}
+	}
+	adjacencyMatrix.push_back(edge);
+}
 int Graph::numberOfEdges() const
 {
 	int numberOfEdges = 0;
@@ -112,6 +144,10 @@ int Graph::numberOfEdges() const
 	}
 	return numberOfEdges;
 }
+void Graph::incidenceMatrixToAdjancency()
+{}
 // корректность данных
 void Graph::graphIsCorrect() const
+{}
+void Graph::correctEdge(int const vertex1, int const vertex2) const
 {}
