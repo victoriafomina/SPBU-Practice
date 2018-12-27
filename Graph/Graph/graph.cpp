@@ -92,7 +92,7 @@ void Graph::printIncidenceMatrix() const
 	{
 		for (int column = 0; column < getNumberOfEdges(); ++column)
 		{
-			cout << adjacencyMatrix[column][row] << " ";
+			cout << incidenceMatrix[column][row] << " ";
 		}
 		cout << endl;
 	}
