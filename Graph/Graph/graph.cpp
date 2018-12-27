@@ -42,6 +42,12 @@ set<int> Graph::getSetOfVertexes() const
 {
 	return setOfVertexes;
 }
+int Graph::getEdgeWeight(int const vertex1, int const vertex2) const
+{
+
+}
+int & Graph::setEdgeWeight(int const vertex1, int const vertex2)
+{}
 // свойства графа
 bool Graph::isDirected() const
 {
@@ -74,6 +80,38 @@ void Graph::adjancencyMatrixToIncidence()
 }
 void Graph::incidenceMatrixToAdjancency()
 {}
+// вспомогательное для заполнения
+int Graph::numberOfEdges() const
+{
+	int numberOfEdges = 0;
+	if (isDirected())
+	{
+		for (int row = 0; row < getNumberOfVertexes(); ++row)
+		{
+			for (int column = 0; column < getNumberOfVertexes(); ++column)
+			{
+				if (getEdgeWeight(row, column) != 0)
+				{
+					++numberOfEdges;
+				}
+			}
+		}
+	}
+	else
+	{
+		for (int row = 0; row < getNumberOfVertexes(); ++row)
+		{
+			for (int column = row; column < getNumberOfVertexes(); ++column)
+			{
+				if (getEdgeWeight(row, column) != 0)
+				{
+					++numberOfEdges;
+				}
+			}
+		}
+	}
+	return numberOfEdges;
+}
 // корректность данных
 void Graph::graphIsCorrect() const
 {}

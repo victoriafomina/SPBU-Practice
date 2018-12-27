@@ -23,6 +23,8 @@ private:
 	// заполнение данных
 	void adjancencyMatrixToIncidence();
 	void incidenceMatrixToAdjancency();
+	// вспомогательное для заполнения
+	int numberOfEdges() const;
 	// корректность данных
 	void graphIsCorrect() const;
 	// хранение данных
