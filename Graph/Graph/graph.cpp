@@ -1,5 +1,6 @@
 #include "graph.h"
 #include <cassert>
+#include <iostream>
 
 using namespace std;
 
@@ -73,6 +74,29 @@ bool Graph::withLoops() const
 	}
 	return false;
 }
+// вывод матриц
+void Graph::printAdjancencyMatrix() const
+{
+	for (int row = 0; row < getNumberOfVertexes(); ++row)
+	{
+		for (int column = 0; column < getNumberOfVertexes(); ++column)
+		{
+			cout << adjacencyMatrix[row][column] << " ";
+		}
+		cout << endl;
+	}
+}
+void Graph::printIncidenceMatrix() const
+{
+	for (int row = 0; row < getNumberOfVertexes(); ++row)
+	{
+		for (int column = 0; column < getNumberOfEdges(); ++column)
+		{
+			cout << adjacencyMatrix[column][row] << " ";
+		}
+		cout << endl;
+	}
+}
 // заполнение данных
 void Graph::adjancencyMatrixToIncidence()
 {
@@ -111,7 +135,7 @@ void Graph::addEdge(int const row, int const column)
 			edge[column] = -getEdgeWeight(row, column);
 		}
 	}
-	adjacencyMatrix.push_back(edge);
+	incidenceMatrix.push_back(edge);
 }
 int Graph::numberOfEdges() const
 {
@@ -145,7 +169,53 @@ int Graph::numberOfEdges() const
 	return numberOfEdges;
 }
 void Graph::incidenceMatrixToAdjancency()
-{}
+{
+	int const numberOfVertexes = incidenceMatrix[0].size();
+	adjacencyMatrix.resize(numberOfVertexes);
+	for (int row = 0; row < numberOfVertexes; ++row)
+	{
+		adjacencyMatrix[row].resize(numberOfVertexes);
+	}
+	for (int edge = 0; edge < incidenceMatrix.size(); ++edge)
+	{
+		int vertex1 = 0;
+		int vertex2 = 0;
+		for (int vertex = 0; vertex < numberOfVertexes; ++vertex)
+		{
+			if (vertex != 0)
+			{
+				if (vertex1 == 0)
+				{
+					vertex1 = vertex;
+				}
+				else
+				{
+					vertex2 = vertex;
+				}
+			}
+		}
+		if (vertex1 > 0)
+		{
+			if (vertex2 == 0)
+			{
+				adjacencyMatrix[vertex1][vertex1] = vertex1;
+			}
+			if (vertex2 > 0)
+			{
+				adjacencyMatrix[vertex1][vertex2] = vertex1;
+				adjacencyMatrix[vertex2][vertex1] = vertex1;
+			}
+			else
+			{
+				adjacencyMatrix[vertex1][vertex2] = vertex1;
+			}
+		}
+		else
+		{
+			adjacencyMatrix[vertex2][vertex1] = vertex2;
+		}
+	}
+}
 // корректность данных
 void Graph::graphIsCorrect() const
 {}

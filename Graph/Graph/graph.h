@@ -17,7 +17,9 @@ public:
 	// свойства графа
 	bool isDirected() const;
 	bool withLoops() const;
-
+	// вывод матриц
+	void printAdjancencyMatrix() const;
+	void printIncidenceMatrix() const;
 private:
 	// заполнение данных
 	void adjancencyMatrixToIncidence();
