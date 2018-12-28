@@ -178,41 +178,46 @@ void Graph::incidenceMatrixToAdjancency()
 	}
 	for (int edge = 0; edge < incidenceMatrix.size(); ++edge)
 	{
+		vector<int> edgeVector = incidenceMatrix[edge];
 		int vertex1 = 0;
 		int vertex2 = 0;
+		int weight1 = 0;
+		int weight2 = 0;
 		for (int vertex = 0; vertex < numberOfVertexes; ++vertex)
 		{
-			if (vertex != 0)
+			if (edgeVector[vertex] != 0)
 			{
 				if (vertex1 == 0)
 				{
 					vertex1 = vertex;
+					weight1 = edgeVector[vertex];
 				}
 				else
 				{
 					vertex2 = vertex;
+					weight2 = edgeVector[vertex];
 				}
 			}
 		}
-		if (vertex1 > 0)
+		if (weight1 > 0)
 		{
-			if (vertex2 == 0)
+			if (weight2 == 0)
 			{
-				adjacencyMatrix[vertex1][vertex1] = vertex1;
+				adjacencyMatrix[vertex1][vertex1] = weight1;
 			}
-			if (vertex2 > 0)
+			if (weight2 > 0)
 			{
-				adjacencyMatrix[vertex1][vertex2] = vertex1;
-				adjacencyMatrix[vertex2][vertex1] = vertex1;
+				adjacencyMatrix[vertex1][vertex2] = weight1;
+				adjacencyMatrix[vertex2][vertex1] = weight1;
 			}
 			else
 			{
-				adjacencyMatrix[vertex1][vertex2] = vertex1;
+				adjacencyMatrix[vertex1][vertex2] = weight1;
 			}
 		}
 		else
 		{
-			adjacencyMatrix[vertex2][vertex1] = vertex2;
+			adjacencyMatrix[vertex2][vertex1] = weight2;
 		}
 	}
 }
