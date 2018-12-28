@@ -19,7 +19,7 @@ Graph::Graph(std::vector<std::vector<int>> const & matrix, string const & matrix
 	}
 	if (matrixType == "incidence")
 	{
-		this->incidenceMatrix = incidenceMatrix;
+		this->incidenceMatrix = matrix;
 		incidenceMatrixToAdjancency();
 	}
 	graphIsCorrect();
